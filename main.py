@@ -19,7 +19,7 @@ if __name__ == "__main__":
     threads = []
     for country, leaders in wiki_scraper.leaders_data.items():
         for leader in leaders:
-            thread = threading.Thread(target=wiki_scraper.get_first_paragraph, args=(leader['wikipedia_url'],))
+            thread = threading.Thread(target=wiki_scraper.get_first_paragraph, args=(leader['wikipedia_url'], leader))
             thread.start()
             threads.append(thread)
     # Wait for all threads to complete
