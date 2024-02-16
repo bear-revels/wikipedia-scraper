@@ -7,11 +7,14 @@
 The Wikipedia Scraper is a Python program designed to scrape data from Wikipedia for country leaders. It retrieves data from a custom API endpoint that provides information about leaders of various countries. The program then extracts the first paragraph from the Wikipedia page of each leader and stores this information alongside the leader's data in a json file.
 
 ## 📦 Repo structure
+
+```
 .
 ├── src/
 │ └── scraper.py
 ├── main.py
 └── README.md
+```
 
 ## 🎮 Usage
 
@@ -39,6 +42,6 @@ The development of this project took 2.5 days for completion.
 
 ## 📌 Personal Situation
 
-This project was completed as part of a coding exercise or for personal learning purposes.
+This project was done as part of the AI Boocamp at BeCode.org. 
 
 Connect with me on [LinkedIn](https://www.linkedin.com/in/bear-revels/) for more information.
