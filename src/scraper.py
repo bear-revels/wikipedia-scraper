@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import threading
 
 class WikipediaScraper:
     def __init__(self):
@@ -29,13 +30,20 @@ class WikipediaScraper:
         countries = self.get_countries()
         # Initialize a dictionary to store leaders per country
         leaders_per_country = {}
-        # Loop over the list of country codes
-        for country_code in countries:
-            # Refresh the cookie before each request
-            self.refresh_cookie()
-            # Query the /leaders endpoint for each country code and store the JSON result in the dictionary
+        # Define a function to fetch leaders for a given country code
+        def fetch_leaders(country_code):
+            self.refresh_cookie()  # Refresh the cookie
             leaders_url = f"{self.base_url}/{self.leaders_endpoint}"
             leaders_per_country[country_code] = requests.get(leaders_url, params={'country': country_code}, cookies=self.cookie).json()
+        # Create and start threads for each country code
+        threads = []
+        for country_code in countries:
+            thread = threading.Thread(target=fetch_leaders, args=(country_code,))
+            thread.start()
+            threads.append(thread)
+        # Wait for all threads to complete
+        for thread in threads:
+            thread.join()
         # Store the leaders data in the instance attribute
         self.leaders_data = leaders_per_country
 
